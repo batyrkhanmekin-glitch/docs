@@ -159,7 +159,7 @@ The **Jira**, **Confluence**, and **Git** (GitLab) integrations support an optio
 **OAuth 2.0 per-user sign-in** in addition to Personal Access Tokens. When OAuth is
 enabled by an administrator, members authorize under their own account — no shared token.
 See the individual tool guides for setup instructions and the
-[OAuth Integration Setup](../../../admin/configuration/oauth-integrations.md) admin guide
+[OAuth Integration Setup](../../../admin/configuration/codemie/api-configuration.md#gitlab-oauth) admin guide
 for platform configuration.
 :::
 

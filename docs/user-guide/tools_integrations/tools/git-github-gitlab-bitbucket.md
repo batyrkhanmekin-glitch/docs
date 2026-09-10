@@ -19,7 +19,7 @@ Integrating Version Control Systems allows assistants to navigate code repositor
 GitLab supports an additional **OAuth 2.0** authentication method alongside the classic Personal Access Token. With OAuth, an administrator configures the GitLab OAuth application once (shared `client_id` / `client_secret`), and each member authorizes under their own GitLab account. Tokens are per-user: calls run as the member who connected, so no one borrows another member's token. **The GitLab OAuth option requires the platform's GitLab OAuth feature to be enabled by an administrator.**
 
 :::info GitLab OAuth availability
-The **Use OAuth 2.0 sign-in** toggle is shown in the integration form only when the platform administrator has enabled it. If the toggle is not visible, the `GITLAB_OAUTH_ENABLED` flag is off. Contact the platform administrator to enable it. See the [OAuth Integration Setup](../../../admin/configuration/oauth-integrations.md) admin guide.
+The **Use OAuth 2.0 sign-in** toggle is shown in the integration form only when the platform administrator has enabled it. If the toggle is not visible, the `GITLAB_OAUTH_ENABLED` flag is off. Contact the platform administrator to enable it. See the [OAuth Integration Setup](../../../admin/configuration/codemie/api-configuration.md#gitlab-oauth) admin guide.
 :::
 
 To integrate the Version Control System tool in AI/Run CodeMie, follow the steps below:

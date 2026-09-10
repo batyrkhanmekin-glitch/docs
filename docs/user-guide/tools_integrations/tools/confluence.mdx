@@ -20,7 +20,7 @@ Two authentication methods are available for the Confluence integration:
 - **OAuth 2.0 (Atlassian 3LO)** — an administrator configures the Atlassian OAuth application once (shared `client_id` and `client_secret`), and each member authorizes under their own Atlassian account. Tokens are per-user: calls run as the member who connected, so no one borrows another member's token. **This option is only available for Confluence Cloud and requires the platform's Confluence OAuth feature to be enabled by an administrator.**
 
 :::info OAuth availability
-The OAuth 2.0 sign-in option is shown in the integration form only when the platform administrator has enabled it. If the toggle is not visible, the `CONFLUENCE_OAUTH_ENABLED` flag is off. Contact the platform administrator to enable it. See the [OAuth Integration Setup](../../../admin/configuration/oauth-integrations.md) admin guide.
+The OAuth 2.0 sign-in option is shown in the integration form only when the platform administrator has enabled it. If the toggle is not visible, the `CONFLUENCE_OAUTH_ENABLED` flag is off. Contact the platform administrator to enable it. See the [OAuth Integration Setup](../../../admin/configuration/codemie/api-configuration.md#confluence-oauth) admin guide.
 :::
 
 ## 1. Create API Token

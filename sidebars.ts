@@ -899,6 +899,7 @@ const sidebars: SidebarsConfig = {
               collapsed: true,
               items: ['admin/configuration/observability/logs-retention'],
             },
+            'admin/configuration/oauth-integrations',
           ],
         },
         {

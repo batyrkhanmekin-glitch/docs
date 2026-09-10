@@ -662,12 +662,13 @@ Enable per-user OAuth 2.0 sign-in for GitLab integrations. An administrator regi
 GitLab OAuth application once; each member then authorizes under their own GitLab account
 so tokens are per-user — calls run as the member who connected.
 
-| Parameter                        | Type    | Default | Description                                                                                                                                                                                                       |
-| -------------------------------- | ------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GITLAB_OAUTH_ENABLED`           | boolean | `false` | Enable the GitLab OAuth 2.0 sign-in option in the Git integration form. Exposed to the UI via `GET /v1/config` as `features.gitlabOauth`. Defaults to `false` — the toggle is hidden until this is set to `true`. |
-| `GITLAB_OAUTH_CLIENT_ID`         | string  | `""`    | OAuth 2.0 Application ID from the GitLab instance where the app is registered.                                                                                                                                    |
-| `GITLAB_OAUTH_CLIENT_SECRET`     | string  | `""`    | OAuth 2.0 Secret from the registered GitLab application.                                                                                                                                                          |
-| `GITLAB_OAUTH_CALLBACK_BASE_URL` | string  | `""`    | Base URL of the CodeMie deployment. The callback registered on GitLab must be `{value}/v1/gitlab-oauth/callback`.                                                                                                 |
+The `client_id`, `client_secret`, and callback URL are entered by the creator in the
+integration form when creating or editing a Git integration with the OAuth toggle enabled.
+The only platform-level switch is the enable flag below.
+
+| Parameter              | Type    | Default | Description                                                                                                                                                                                                       |
+| ---------------------- | ------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GITLAB_OAUTH_ENABLED` | boolean | `false` | Enable the GitLab OAuth 2.0 sign-in option in the Git integration form. Exposed to the UI via `GET /v1/config` as `features.gitlabOauth`. Defaults to `false` — the toggle is hidden until this is set to `true`. |
 
 :::warning Redis Required
 The GitLab OAuth flow stores PKCE state and tokens in Redis during the authorization
@@ -676,15 +677,14 @@ before enabling GitLab OAuth.
 :::
 
 :::info GitLab Application Setup
+Register an OAuth application on the GitLab instance members will authorize against:
 
-1. In the GitLab instance, go to **Admin Area → Applications** (or **User Settings → Applications**).
-2. Create an application with:
-   - **Redirect URI**: `{GITLAB_OAUTH_CALLBACK_BASE_URL}/v1/gitlab-oauth/callback`
-   - **Scopes**: `api`, `read_user`
-3. Copy the **Application ID** and **Secret** to `GITLAB_OAUTH_CLIENT_ID` and `GITLAB_OAUTH_CLIENT_SECRET`.
+1. Go to **Admin Area → Applications** (or **User Settings → Applications**).
+2. Set the **Redirect URI** to: `https://<codemie-base-url>/v1/gitlab-oauth/callback`
+3. Select scopes: `api`, `read_user`.
+4. Note the **Application ID** and **Secret** — these are entered in the integration form.
 
 Only the GitLab instance where the application is registered is accepted for authorization.
-Members who select a different instance URL receive an error.
 :::
 
 ### Jira OAuth
@@ -693,12 +693,12 @@ Enable per-user OAuth 2.0 (Atlassian 3LO) sign-in for Jira integrations. Jira an
 Confluence share a single Atlassian OAuth application and a single callback URL —
 registering one app in the Atlassian Developer Console covers both providers.
 
-| Parameter                      | Type    | Default | Description                                                                                                                                                 |
-| ------------------------------ | ------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `JIRA_OAUTH_ENABLED`           | boolean | `false` | Enable the Jira OAuth 2.0 sign-in option in the Jira integration form. Exposed to the UI via `GET /v1/config` as `features.jiraOauth`. Defaults to `false`. |
-| `JIRA_OAUTH_CLIENT_ID`         | string  | `""`    | Atlassian OAuth 2.0 Client ID from the Atlassian Developer Console.                                                                                         |
-| `JIRA_OAUTH_CLIENT_SECRET`     | string  | `""`    | Atlassian OAuth 2.0 Client Secret.                                                                                                                          |
-| `JIRA_OAUTH_CALLBACK_BASE_URL` | string  | `""`    | Base URL of the CodeMie deployment. The Atlassian app's callback must be `{value}/v1/atlassian-oauth/callback`.                                             |
+The `client_id`, `client_secret`, and callback URL are entered in the integration form.
+The only platform-level switch is the enable flag below.
+
+| Parameter            | Type    | Default | Description                                                                                                                                                 |
+| -------------------- | ------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `JIRA_OAUTH_ENABLED` | boolean | `false` | Enable the Jira OAuth 2.0 sign-in option in the Jira integration form. Exposed to the UI via `GET /v1/config` as `features.jiraOauth`. Defaults to `false`. |
 
 :::warning Redis Required
 The Atlassian OAuth flow stores state and tokens in Redis. A running Redis instance must
@@ -711,25 +711,22 @@ Enable per-user OAuth 2.0 (Atlassian 3LO) sign-in for Confluence integrations. C
 reuses the same Atlassian OAuth application as Jira — the `cloud_id` is resolved
 automatically after authorization.
 
-| Parameter                            | Type    | Default | Description                                                                                                                                                                   |
-| ------------------------------------ | ------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CONFLUENCE_OAUTH_ENABLED`           | boolean | `false` | Enable the Confluence OAuth 2.0 sign-in option in the Confluence integration form. Exposed to the UI via `GET /v1/config` as `features.confluenceOauth`. Defaults to `false`. |
-| `CONFLUENCE_OAUTH_CLIENT_ID`         | string  | `""`    | Atlassian OAuth 2.0 Client ID (same app as Jira — both providers share one registration).                                                                                     |
-| `CONFLUENCE_OAUTH_CLIENT_SECRET`     | string  | `""`    | Atlassian OAuth 2.0 Client Secret.                                                                                                                                            |
-| `CONFLUENCE_OAUTH_CALLBACK_BASE_URL` | string  | `""`    | Base URL of the CodeMie deployment. The shared Atlassian callback is `{value}/v1/atlassian-oauth/callback`.                                                                   |
+The `client_id`, `client_secret`, and callback URL are entered in the integration form.
+The only platform-level switch is the enable flag below.
+
+| Parameter                  | Type    | Default | Description                                                                                                                                                                   |
+| -------------------------- | ------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CONFLUENCE_OAUTH_ENABLED` | boolean | `false` | Enable the Confluence OAuth 2.0 sign-in option in the Confluence integration form. Exposed to the UI via `GET /v1/config` as `features.confluenceOauth`. Defaults to `false`. |
 
 :::info Atlassian Developer Console Setup
-Jira and Confluence share one Atlassian OAuth 2.0 app. Register it once:
+Jira and Confluence share one Atlassian OAuth 2.0 app — register it once:
 
 1. Go to the [Atlassian Developer Console](https://developer.atlassian.com/console/myapps/) and create an **OAuth 2.0 integration**.
 2. Under **Permissions**, add scopes:
    - **Jira**: `read:jira-work`, `write:jira-work`, `read:jira-user`
    - **Confluence**: `read:confluence-content.all`, `write:confluence-content`, `read:confluence-space.summary`
-3. Under **Authorization**, set the **Callback URL** to:
-   ```
-   {CONFLUENCE_OAUTH_CALLBACK_BASE_URL}/v1/atlassian-oauth/callback
-   ```
-4. Copy the **Client ID** and **Secret** to all four `JIRA_OAUTH_CLIENT_ID` / `JIRA_OAUTH_CLIENT_SECRET` / `CONFLUENCE_OAUTH_CLIENT_ID` / `CONFLUENCE_OAUTH_CLIENT_SECRET` variables (same values for all four).
+3. Under **Authorization**, set the **Callback URL** to: `https://<codemie-base-url>/v1/atlassian-oauth/callback`
+4. Note the **Client ID** and **Secret** — these are entered in the Jira and Confluence integration forms.
    :::
 
 ---

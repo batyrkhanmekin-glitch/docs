@@ -125,13 +125,13 @@ If this integration is created under the **Project** tab, the key is available t
 The OAuth 2.0 option is only available when the platform administrator has enabled it (the `CONFLUENCE_OAUTH_ENABLED` flag). If the **Use OAuth 2.0 sign-in** toggle is not shown, contact the platform administrator.
 :::
 
-OAuth 2.0 integrations are **per-user**: an administrator configures the OAuth application credentials (`client_id` and `client_secret`) once, and each member connects under their own Atlassian account. Calls to Confluence run as the individual member — no shared token.
+OAuth 2.0 integrations are **per-user**: the OAuth application credentials (`Client ID`, `Client Secret`, `Callback Base URL`) are entered in the integration form when creating the integration, and each member then connects under their own Atlassian account. Calls to Confluence run as the individual member — no shared token.
 
 **Steps:**
 
-2.2.1. Enable the **Use OAuth 2.0 sign-in** toggle in the integration form. The form switches to show the OAuth application fields (`Client ID`, `Client Secret`, `Callback Base URL`). These are filled in by the administrator for shared integrations, or by the user when creating a personal integration.
+2.2.1. Enable the **Use OAuth 2.0 sign-in** toggle in the integration form. The form shows the OAuth application fields: **Client ID**, **Client Secret**, and **Callback Base URL**. Fill these in with the values from the Atlassian OAuth application registered for this platform.
 
-2.2.2. Click **Sign in with Confluence** (or the OAuth sign-in button that appears). A browser popup opens the Atlassian authorization page.
+2.2.2. Click **Sign in with Confluence**. A browser popup opens the Atlassian authorization page.
 
 2.2.3. Log in to Atlassian and grant the requested permissions. The popup closes automatically on success.
 

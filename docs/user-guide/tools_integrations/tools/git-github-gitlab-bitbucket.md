@@ -153,17 +153,17 @@ The private key is stored encrypted and displayed in masked format for security.
 <TabItem value="gitlab-oauth" label="GitLab OAuth 2.0">
 
 :::info Prerequisite
-The GitLab OAuth 2.0 option is only available when the platform administrator has enabled it (the `GITLAB_OAUTH_ENABLED` flag) and configured an allowed GitLab instance. If the **Use OAuth 2.0 sign-in** toggle is not shown, contact the platform administrator.
+The GitLab OAuth 2.0 option is only available when the platform administrator has enabled it (the `GITLAB_OAUTH_ENABLED` flag). If the **Use OAuth 2.0 sign-in** toggle is not shown, contact the platform administrator.
 :::
 
-OAuth 2.0 integrations are **per-user**: an administrator configures the GitLab OAuth application credentials (`client_id` and `client_secret`) once, and each member connects under their own GitLab account. Calls to GitLab run as the individual member — no shared token.
+OAuth 2.0 integrations are **per-user**: the OAuth application credentials (`Client ID`, `Client Secret`, `Callback Base URL`, `GitLab Instance URL`) are entered in the integration form when creating the integration, and each member then connects under their own GitLab account. Calls to GitLab run as the individual member — no shared token.
 
 **Steps:**
 
-1. Enable the **Use OAuth 2.0 sign-in** toggle in the integration form. The form switches to show the OAuth application fields (`Client ID`, `Client Secret`, `Callback Base URL`, and `GitLab Instance URL`). For shared project integrations, these fields are pre-filled by the administrator.
+1. Enable the **Use OAuth 2.0 sign-in** toggle in the integration form. The form shows the OAuth application fields: **Client ID**, **Client Secret**, **Callback Base URL**, and **GitLab Instance URL**. Fill these in with the values from the GitLab OAuth application.
 
    :::note
-   The **GitLab Instance URL** field specifies which GitLab instance this OAuth application is registered on (e.g., `https://gitlab.com` or `https://gitlab.example.com`). Only instances on the platform-configured allowed list can be used.
+   The **GitLab Instance URL** identifies which GitLab instance the OAuth application is registered on (e.g., `https://gitlab.com` or `https://gitlab.example.com`).
    :::
 
 2. Click **Sign in with GitLab**. A browser popup opens the GitLab authorization page.

@@ -664,11 +664,29 @@ so tokens are per-user — calls run as the member who connected.
 
 The `client_id`, `client_secret`, and callback URL are entered by the creator in the
 integration form when creating or editing a Git integration with the OAuth toggle enabled.
-The only platform-level switch is the enable flag below.
+The platform-level flags below control which instances are permitted and whether the
+feature is exposed in the UI.
 
-| Parameter              | Type    | Default | Description                                                                                                                                                                                                       |
-| ---------------------- | ------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GITLAB_OAUTH_ENABLED` | boolean | `false` | Enable the GitLab OAuth 2.0 sign-in option in the Git integration form. Exposed to the UI via `GET /v1/config` as `features.gitlabOauth`. Defaults to `false` — the toggle is hidden until this is set to `true`. |
+| Parameter                            | Type    | Default              | Description                                                                                                                                                                                                                                        |
+| ------------------------------------ | ------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GITLAB_OAUTH_ENABLED`               | boolean | `false`              | Enable the GitLab OAuth 2.0 sign-in option in the Git integration form. Exposed to the UI via `GET /v1/config` as `features.gitlabOauth`. Defaults to `false` — the toggle is hidden until this is set to `true`.                                  |
+| `GITLAB_OAUTH_DEFAULT_INSTANCE_URL`  | string  | `https://gitlab.com` | The GitLab instance that is always on the allowlist. Override when the primary instance is self-hosted (e.g., `https://gitlab.example.com`).                                                                                                       |
+| `GITLAB_OAUTH_ALLOWED_INSTANCE_URLS` | string  | `""`                 | Comma-separated list of additional GitLab instance URLs to allow. The backend only forwards OAuth credentials to hosts matching `GITLAB_OAUTH_DEFAULT_INSTANCE_URL` or listed here. Add every self-hosted instance members will authorize against. |
+
+:::warning Allowlist required for self-hosted GitLab
+The backend refuses OAuth for any GitLab instance not on the allowlist, raising:
+`GitLab instance '...' is not in the allowed list`.
+
+For every self-hosted GitLab instance members will use, add its URL to
+`GITLAB_OAUTH_ALLOWED_INSTANCE_URLS`. Multiple instances are comma-separated:
+
+```bash
+GITLAB_OAUTH_ALLOWED_INSTANCE_URLS=https://gitbud.epam.com,https://gitlab.internal.com
+```
+
+`https://gitlab.com` is always allowed regardless of this setting (it is the default
+value of `GITLAB_OAUTH_DEFAULT_INSTANCE_URL`).
+:::
 
 :::warning Redis Required
 The GitLab OAuth flow stores PKCE state and tokens in Redis during the authorization

@@ -163,7 +163,12 @@ OAuth 2.0 integrations are **per-user**: the OAuth application credentials (`Cli
 1. Enable the **Use OAuth 2.0 sign-in** toggle in the integration form. The form shows the OAuth application fields: **Client ID**, **Client Secret**, **Callback Base URL**, and **GitLab Instance URL**. Fill these in with the values from the GitLab OAuth application.
 
    :::note
-   The **GitLab Instance URL** identifies which GitLab instance the OAuth application is registered on (e.g., `https://gitlab.com` or `https://gitlab.example.com`).
+   The **GitLab Instance URL** identifies which GitLab instance the OAuth application is
+   registered on (e.g., `https://gitlab.com` or `https://gitlab.example.com`). The
+   platform administrator must add every self-hosted instance to
+   `GITLAB_OAUTH_ALLOWED_INSTANCE_URLS` — the backend rejects authorization for any
+   instance not on the allowlist. If sign-in fails with an "instance not allowed" error,
+   contact the platform administrator.
    :::
 
 2. Click **Sign in with GitLab**. A browser popup opens the GitLab authorization page.
